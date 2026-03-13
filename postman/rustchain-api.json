@@ -1,0 +1,165 @@
+{
+  "info": {
+    "name": "RustChain API",
+    "description": "RustChain API endpoints for wallet, blockchain, and mining operations.\n\n**Base URL:** https://50.28.86.131\n\n**Note:** Use `-k` flag with curl or `verify=False` in Python due to self-signed certificates.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://50.28.86.131",
+      "type": "string"
+    },
+    {
+      "key": "miner_id",
+      "value": "Ivan-houzhiwen",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        }
+      },
+      "response": [
+        {
+          "name": "Health Response",
+          "originalRequest": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"ok\": true,\n  \"version\": \"2.2.1-rip200\",\n  \"uptime_s\": 200000\n}",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Get Epoch Info",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/epoch",
+          "host": ["{{baseUrl}}"],
+          "path": ["epoch"]
+        }
+      },
+      "response": [
+        {
+          "name": "Epoch Response",
+          "originalRequest": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/epoch",
+              "host": ["{{baseUrl}}"],
+              "path": ["epoch"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"epoch\": 95,\n  \"slot\": 12345,\n  \"height\": 67890\n}",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Check Balance",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/wallet/balance?miner_id={{miner_id}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["wallet", "balance"],
+          "query": [
+            { "key": "miner_id", "value": "{{miner_id}}" }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Balance Response",
+          "originalRequest": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/wallet/balance?miner_id={{miner_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["wallet", "balance"],
+              "query": [
+                { "key": "miner_id", "value": "{{miner_id}}" }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"amount_i64\": 155000000,\n  \"amount_rtc\": 155.0,\n  \"miner_id\": \"Ivan-houzhiwen\"\n}",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Signed Transfer",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{baseUrl}}/wallet/transfer/signed",
+          "host": ["{{baseUrl}}"],
+          "path": ["wallet", "transfer", "signed"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"from\": \"sender_wallet_id\",\n  \"to\": \"recipient_wallet_id\",\n  \"amount\": 1000000,\n  \"fee\": 1000,\n  \"signature\": \"hex_encoded_signature\",\n  \"timestamp\": 1234567890\n}"
+        },
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ]
+      },
+      "response": [
+        {
+          "name": "Transfer Response",
+          "originalRequest": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/wallet/transfer/signed",
+              "host": ["{{baseUrl}}"],
+              "path": ["wallet", "transfer", "signed"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"ok\": true,\n  \"tx_hash\": \"abc123...\"\n}",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Explorer",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/explorer",
+          "host": ["{{baseUrl}}"],
+          "path": ["explorer"]
+        }
+      }
+    }
+  ]
+}
